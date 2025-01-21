@@ -29,7 +29,12 @@ This repository is a fork of the original SplaTV by [@antimatter15](https://gith
 
 ### **Converting `.ply` to `.splatv`**
 
-Use the provided Python script to convert SpacetimeGaussians `.ply` files into `.splatv` format:
+First, install some minimal dependencies in your environment:
+```bash
+pip install numpy plyfile
+```
+
+Then use the provided Python script to convert SpacetimeGaussians `.ply` files into `.splatv` format:
 ```bash
 python ply_to_splatv.py /path/to/ply --output /path/to/splatv/output
 ```
@@ -40,7 +45,6 @@ python ply_to_splatv.py /path/to/ply --output /path/to/splatv/output
    ```bash
    npm start
    ```
-
    The visualizer will be running at `http://localhost:3000`.
 
 2. By default, the visualizer loads `model.splatv` (included in the original SplaTV repository).  
@@ -57,3 +61,8 @@ python ply_to_splatv.py /path/to/ply --output /path/to/splatv/output
 ## **Additional Models**
 
 Feel free to explore the provided `.splatv` models under the `/splatv` folder. These examples can be used to test and experiment with the visualizer.
+
+
+## **References & additional work**
+
+The ply_to_splatv.py converter is based on the work done by @GoToEasy, check its ply2splat and splat2ply converter: https://github.com/gotoeasy/gsbox
