@@ -281,6 +281,7 @@ async function initXR() {
   refSpace = await session.requestReferenceSpace("local");
 
   const url = params.get("url") ? new URL(params.get("url"), "https://huggingface.co/cakewalk/splat-data/resolve/main/") : "coffeetv.splatv";
+  // this repo contains some more splatv files, ready to visualize: https://huggingface.co/cakewalk/splat-data/tree/main
   const req = await fetch(url, { mode: "cors", credentials: "omit" });
   if (req.status != 200) throw new Error(req.status + " Unable to load " + req.url);
 
