@@ -1,0 +1,28 @@
+{
+  "name": "splatv",
+  "version": "1.0.0",
+  "main": "hybrid.js",
+  "scripts": {
+    "start": "http-server ./ -p 3000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antimatter15/splaTV.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antimatter15/splaTV/issues"
+  },
+  "homepage": "https://github.com/antimatter15/splaTV#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2",
+    "three": "^0.172.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

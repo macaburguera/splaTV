@@ -508,7 +508,7 @@ async function main() {
       readChunks(new Response(blob).body.getReader(), [{ size: 8, type: "magic" }], chunkHandler);
 
       const link = document.createElement("a");
-      link.download = "model.splatv";
+      link.download = "coffeetv.splatv";
       link.href = URL.createObjectURL(blob);
       document.body.appendChild(link);
       link.click();
@@ -1002,7 +1002,8 @@ async function main() {
     }
   };
 
-  const url = params.get("url") ? new URL(params.get("url"), "https://huggingface.co/cakewalk/splat-data/resolve/main/") : "model.splatv";
+  //const url = params.get("url") ? new URL(params.get("url"), "https://huggingface.co/cakewalk/splat-data/resolve/main/") : "coffeetv.splatv";
+  const url = "coffeetv.splatv";
   const req = await fetch(url, { mode: "cors", credentials: "omit" });
   if (req.status != 200) throw new Error(req.status + " Unable to load " + req.url);
 
@@ -1180,4 +1181,85 @@ function translate4(a, x, y, z) {
     a[2] * x + a[6] * y + a[10] * z + a[14],
     a[3] * x + a[7] * y + a[11] * z + a[15],
   ];
+}
+
+// Existing content above remains unchanged...
+// Add this section to enable file loading
+
+// Add a Load File Button and Input to the DOM
+const fileLoaderDiv = document.createElement("div");
+fileLoaderDiv.style.position = "absolute";
+fileLoaderDiv.style.top = "10px";
+fileLoaderDiv.style.left = "10px";
+fileLoaderDiv.style.zIndex = "1000";
+
+const fileInput = document.createElement("input");
+fileInput.type = "file";
+fileInput.id = "fileInput";
+fileInput.accept = ".splatv";
+fileInput.style.display = "none";
+
+const loadFileButton = document.createElement("button");
+loadFileButton.id = "loadFileButton";
+loadFileButton.textContent = "Load File";
+loadFileButton.style.backgroundColor = "#007bff";
+loadFileButton.style.color = "white";
+loadFileButton.style.border = "none";
+loadFileButton.style.padding = "10px 15px";
+loadFileButton.style.borderRadius = "5px";
+loadFileButton.style.cursor = "pointer";
+loadFileButton.style.fontSize = "medium";
+
+loadFileButton.addEventListener("mouseover", () => {
+  loadFileButton.style.backgroundColor = "#0056b3";
+});
+loadFileButton.addEventListener("mouseout", () => {
+  loadFileButton.style.backgroundColor = "#007bff";
+});
+
+fileLoaderDiv.appendChild(fileInput);
+fileLoaderDiv.appendChild(loadFileButton);
+document.body.appendChild(fileLoaderDiv);
+
+// Event listener for the button to open file dialog
+loadFileButton.addEventListener("click", () => {
+  fileInput.click();
+});
+
+// Logic to handle the file input change and load the selected file
+fileInput.addEventListener("change", (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const arrayBuffer = e.target.result;
+
+    // Process the loaded .splatv file
+    readChunks(new Response(arrayBuffer).body.getReader(), [{ size: 8, type: "magic" }], chunkHandler)
+      .then(() => {
+        console.log(`Successfully loaded ${file.name}`);
+        alert(`File "${file.name}" loaded successfully!`);
+      })
+      .catch((err) => {
+        console.error("Error loading file:", err);
+        alert(`Failed to load file: ${err.message}`);
+      });
+  };
+  reader.readAsArrayBuffer(file);
+});
+
+// Optional: Feedback Div for user updates
+const feedbackDiv = document.createElement("div");
+feedbackDiv.id = "feedback";
+feedbackDiv.style.position = "absolute";
+feedbackDiv.style.top = "50px";
+feedbackDiv.style.left = "10px";
+feedbackDiv.style.zIndex = "1000";
+feedbackDiv.style.color = "white";
+feedbackDiv.style.fontSize = "small";
+document.body.appendChild(feedbackDiv);
+
+function updateFeedback(message) {
+  feedbackDiv.textContent = message;
 }
