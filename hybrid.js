@@ -508,7 +508,7 @@ async function main() {
       readChunks(new Response(blob).body.getReader(), [{ size: 8, type: "magic" }], chunkHandler);
 
       const link = document.createElement("a");
-      link.download = "spinach.splatv";
+      link.download = "spinach.splatv"; // not this xd
       link.href = URL.createObjectURL(blob);
       document.body.appendChild(link);
       link.click();
@@ -1003,7 +1003,8 @@ async function main() {
   };
 
   //const url = params.get("url") ? new URL(params.get("url"), "https://huggingface.co/cakewalk/splat-data/resolve/main/") : "coffeetv.splatv";
-  const url = "splatv/model.splatv"; // default one
+  // this repo contains some more splatv files, ready to visualize: https://huggingface.co/cakewalk/splat-data/tree/main
+  const url = "splatv/yellow_clip4.splatv"; // default one
   const req = await fetch(url, { mode: "cors", credentials: "omit" });
   if (req.status != 200) throw new Error(req.status + " Unable to load " + req.url);
 
