@@ -1004,7 +1004,7 @@ async function main() {
 
   //const url = params.get("url") ? new URL(params.get("url"), "https://huggingface.co/cakewalk/splat-data/resolve/main/") : "coffeetv.splatv";
   // this repo contains some more splatv files, ready to visualize: https://huggingface.co/cakewalk/splat-data/tree/main
-  const url = "splatv/yellow_clip4.splatv"; // default one
+  let url = prompt("Enter the path to the .splatv file:", "splatv/yellow_clip4.splatv"); // default one. HERE IT IS THE SPLATV THAT IS LOADED
   const req = await fetch(url, { mode: "cors", credentials: "omit" });
   if (req.status != 200) throw new Error(req.status + " Unable to load " + req.url);
 
